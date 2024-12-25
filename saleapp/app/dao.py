@@ -5,7 +5,7 @@ from flask_login import current_user
 from app import app, db
 from app.models import User, Appointment, UserRole, Medical, MedicalReport, MedicalReportDetails
 import hashlib
-=======
+
 from app.models import Category, Product, User, Receipt, ReceiptDetails, Comment
 from app import app, db
 import hashlib
@@ -84,7 +84,6 @@ def load_appointment(kw=None, date=None, page=1, status=None):
     if status:
         appointments = appointments.filter(Appointment.status == True)
 
-<<<<<<< HEAD
     page_size = app.config["PAGE_SIZE"]
     start = (page - 1) * page_size
     appointments = appointments.slice(start, start + page_size)
