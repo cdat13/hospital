@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from datetime import datetime
 import mysql.connector
 from flask_login import current_user
@@ -13,7 +13,7 @@ import cloudinary.uploader
 from flask_login import current_user
 from sqlalchemy import func
 from datetime import datetime
->>>>>>> 1ebfe801aae69c2bb0dad9335c5d444ca3c7ea13
+
 
 
 def auth_user(username, password, role=None):
@@ -28,13 +28,13 @@ def auth_user(username, password, role=None):
     return u.first()
 
 
-<<<<<<< HEAD
+
 def auth_staff(role):
     if role.__eq__('DOCTOR'):
         if User.user_role.__eq__(role):
             return True
         else: return False
-=======
+
 def load_products(kw=None, category_id=None, page=1):
     products = Product.query
 >>>>>>> 1ebfe801aae69c2bb0dad9335c5d444ca3c7ea13
@@ -138,7 +138,7 @@ def add_report(cart, appointment_id):
                                      quantity=c['quantity'])
             db.session.add(d)
         db.session.commit()
-=======
+
     if category_id:
         products = products.filter(Product.category_id == category_id)
 
