@@ -19,12 +19,9 @@ SQLAlchemy==2.0.36
 typing_extensions==4.12.2
 urllib3==2.2.3
 Werkzeug==3.0.6
-<<<<<<< HEAD
 WTForms~=3.2.1
 Flask-Admin~=1.6.1
 Flask-Login~=0.6.3
-=======
 wheel==0.37.1
 WTForms==3.1.2
 zipp==3.21.0
->>>>>>> 1ebfe801aae69c2bb0dad9335c5d444ca3c7ea13
