@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from app import app, db
 from flask_admin import Admin, BaseView, expose
 from app.models import User, Appointment, UserRole
@@ -10,7 +10,7 @@ from flask import redirect
 admin = Admin(app=app, name="Quản lý hệ thống bệnh viện", template_mode="bootstrap4")
 
 
-=======
+
 from app import db, app, dao
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
@@ -35,8 +35,7 @@ class AuthenticatedView(ModelView):
         return current_user.is_authenticated and current_user.user_role.__eq__(UserRole.ADMIN)
 
 
-<<<<<<< HEAD
-=======
+
 class CategoryView(AuthenticatedView):
     can_export = True
     column_searchable_list = ['id', 'name']
@@ -62,7 +61,7 @@ class LogoutView(MyView):
         return redirect('/admin')
 
 
-<<<<<<< HEAD
+
 class AppointView(AuthenticatedView):
     can_view_details = True
     can_export = True
@@ -72,7 +71,7 @@ class AppointView(AuthenticatedView):
 admin.add_view(AuthenticatedView(User, db.session))
 admin.add_view(AppointView(Appointment, db.session))
 admin.add_view(LogoutView(name='Đăng xuất'))
-=======
+
 class StatsView(MyView):
     @expose("/")
     def index(self):
