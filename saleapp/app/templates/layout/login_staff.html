@@ -1,0 +1,94 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content%}
+
+{% if err_msg %}
+<div class="alert alert-danger">{{err_msg}}</div>
+{% endif %}
+
+<!-- Start Contact Us -->
+		<section class="contact-us section">
+			<div class="container">
+				<div class="inner">
+					<div class="row"> 
+						<div class="col-lg-6">
+							<div class="contact-us-left">
+								<div> <img src="https://res.cloudinary.com/dbkshen63/image/upload/v1734275807/cmvovvx1pqjtaukzbpib.jpg"> </div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="contact-us-form">
+								<h2>Đăng nhập</h2>
+								<!-- Form -->
+								<form class="form" method="post" action="/login_staff">
+									<div>
+										<div class="col-lg-8">
+											<div class="form-group">
+												<input type="text" name="username_staff" placeholder="Tên đăng nhập" id = "username_staff" required>
+											</div>
+										</div>
+										<div class="col-lg-8">
+											<div class="form-group">
+												<input type="text" name="password_staff" placeholder="Mật khẩu" id = "password_staff" required>
+											</div>
+										</div>
+										<div class="col-lg-8">
+											<input type="checkbox" name="role" id="DOCTOR" value="DOCTOR">
+										</div>
+										<div class="col-lg-8">
+											<div class="form-group login-btn">
+												<button class="btn" type="submit">Send</button>
+											</div>
+										</div>
+									</div>
+								</form>
+								<!--/ End Form -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="contact-info">
+					<div class="row">
+						<!-- single-info -->
+						<div class="col-lg-4 col-12 ">
+							<div class="single-info">
+								<i class="icofont icofont-ui-call"></i>
+								<div class="content">
+									<h3>+(84) 1234 56789</h3>
+									<p>CongDat@company.com</p>
+								</div>
+							</div>
+						</div>
+						<!--/End single-info -->
+						<!-- single-info -->
+						<div class="col-lg-4 col-12 ">
+							<div class="single-info">
+								<i class="icofont-google-map"></i>
+								<div class="content">
+									<h3>Quận 2</h3>
+									<p>Thành phố Hồ Chí Minh</p>
+								</div>
+							</div>
+						</div>
+						<!--/End single-info -->
+						<!-- single-info -->
+						<div class="col-lg-4 col-12 ">
+							<div class="single-info">
+								<i class="icofont icofont-wall-clock"></i>
+								<div class="content">
+									<h3>T2 - T6: 8am - 8pm</h3>
+									<p>T7: 9am - 6.30pm</p>
+                                    <p>CN: 9am - 3pm</p>
+
+								</div>
+							</div>
+						</div>
+						<!--/End single-info -->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End Contact Us -->
+{% endblock %}

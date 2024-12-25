@@ -1,0 +1,80 @@
+<!-- Header Area -->
+		<header class="header" >
+			<!-- Topbar -->
+			<div class="topbar">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-5 col-12">
+							<!-- Contact -->
+							<ul class="top-link">
+								<li><a href="#">Về chúng tôi</a></li>
+								<li><a href= "{{ url_for('login_process_staff') }}">Nhân viên</a></li>
+								{% if current_user.is_authenticated %}
+								<li><a href="{{ url_for('index') }}">
+									Chào {{ current_user.username }}.
+								</a></li>
+								<li class="nav-item">
+                    			<a class="nav-link text-success" href="{{ url_for('logout_process') }}">
+									Đăng xuất
+								</a></li>
+                                {% else %}
+								<li><a href="{{ url_for('login_process') }}">Đăng nhập</a></li>
+								<li><a href="{{ url_for('register_user') }}">Đăng ký</a></li>
+								{% endif %}
+							</ul>
+							<!-- End Contact -->
+						</div>
+						<div class="col-lg-6 col-md-7 col-12">
+							<!-- Top Contact -->
+							<ul class="top-contact">
+								<li><i class="fa fa-phone"></i>+84 123456789 </li>
+								<li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">CongDat@gmail.com</a></li>
+							</ul>
+							<!-- End Top Contact -->
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- End Topbar -->
+			<!-- Header Inner -->
+			<div class="header-inner">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-12">
+								<div class="mobile-nav"></div>
+							</div>
+							<div class="col-lg-7 col-md-9 col-12">
+								<!-- Main Menu -->
+								<div class="main-menu">
+									<nav class="navigation">
+										<ul class="nav menu">
+											<li class="active"><a href="{{ url_for('index') }}">Trang chủ <i class="icofont-rounded-down"></i></a>
+											</li>
+											<li><a href="{{ url_for('nurse') }}"> Y tá </a></li>
+											<li><a href="{{ url_for('doctor_main') }}">Bác sĩ </a></li>
+											<li><a href="#">Blogs <i class="icofont-rounded-down"></i></a>
+												<ul class="dropdown">
+													<li><a href="blog-single.html">Blog Details</a></li>
+												</ul>
+											</li>
+											<li><a href="contact.html">Liên hệ</a></li>
+										</ul>
+									</nav>
+								</div>
+								<!--/ End Main Menu -->
+							</div>
+							<div class="col-lg-2 col-12">
+								<div class="get-quote">
+									<a href="{{ url_for('make_appointment') }}" class="btn">Đặt lịch khám </a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Header Inner -->
+		</header>
+		<!-- End Header Area -->
+
+

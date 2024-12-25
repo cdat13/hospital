@@ -1,0 +1,23 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+<form class="form-group" action="/doctor_main" method="post">
+<h5 class="jumbotron text-center cover-heading" style="font-size: 2vw">Danh sách bệnh nhân</h5>
+{% if appointments %}
+<div class="container">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h5 class="border-bottom border-gray pb-2 mb-0  ">Bệnh nhân</h5>
+        {% for app in appointments %}
+        <div class="row mb-3" style="margin-top:3%">
+            <div class="col-5">{{ app.name }}</div>
+            <div class="col-5">{{ app.phone }}</div>
+            <a href="{{ url_for('doctor', appointment_id = app.id) }}" class="btn btn-primary">Xem chi tiết</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</form>
+{% else %}
+<div class="alert alert-info mt-1">KHÔNG có sản phẩm nào.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+<form class="form-group" action="/nurse" method="post">
+<h5 class="jumbotron text-center cover-heading" style="font-size: 2vw">Danh sách phiếu khám</h5>
+<div class="btn-toolbar mb-2 mb-md-0 col-lg-6" >
+        <div class="btn-group mr-2">
+            <p>
+            <h7 style="display:">Ngày khám bệnh: </h7>
+            <input name="date" type="date" id="date" placeholder="Ngày khám">
+            <button  name="filter" type="submit" id="filter" class="btn btn-primary my-2" >Lọc</button>
+            </p>
+        </div>
+</div>
+{% if appointments %}
+<div class="row col-lg-12">
+    {% for app in appointments %}
+    <div class="col-md-3 col-12 p-2">
+        <div class="card" >
+            <div class="card-body">
+                <h5 class="card-title">{{ app.name }}</h5>
+                <p class="card-text">{{ app.phone }}</p>
+                <p class="card-text">{{ app.email }}</p>
+                <p class="card-text">{{ app.address }}</p>
+                <p class="card-text">{{ app.date }}</p>
+                <a href="#" class="btn btn-primary">Xem chi tiết</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+    {% endfor %}
+</div>
+<form action="/nurse_update" method="POST">
+    <div class="text-center ">
+    <button name="create" type="submit" id="create" class="btn btn-primary my-2" >Tạo phiếu khám</button>
+    </div>
+</form>
+{% else %}
+<div class="alert alert-info mt-1">KHÔNG có sản phẩm nào.</div>
+{% endif %}
+{% endblock %}

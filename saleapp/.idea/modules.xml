@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../../mediplus-lite/.idea/mediplus-lite.iml" filepath="$PROJECT_DIR$/../../../mediplus-lite/.idea/mediplus-lite.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/saleapp.iml" filepath="$PROJECT_DIR$/.idea/saleapp.iml" />
     </modules>
   </component>

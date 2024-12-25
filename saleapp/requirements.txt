@@ -9,3 +9,6 @@ MarkupSafe==3.0.2
 SQLAlchemy==2.0.36
 typing_extensions==4.12.2
 Werkzeug==3.0.6
+WTForms~=3.2.1
+Flask-Admin~=1.6.1
+Flask-Login~=0.6.3

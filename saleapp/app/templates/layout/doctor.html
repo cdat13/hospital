@@ -1,0 +1,77 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+<form class="form-group container" action="/doctor" method="post">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <div class="container">
+    <div class="col-lg-12">
+            <h2 class="border-bottom border-gray pb-2 mb-0">Phiếu khám bệnh</h2>
+    </div>
+    </div>
+    <div class="container form-group">
+        <div class="table-responsive">
+            <table class="table table-stripe table-sm" style="background-color:powderblue">
+                <thead>
+                    <tr>
+                        <th>Số thứ tự</th>
+                        <th>Tên thuốc</th>
+                        <th>Quy cách</th>
+                        <th>Cách sử dụng</th>
+                        <th>Số lượng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {% if 'cart' in session and session['cart'] %}
+                <tbody>
+                {% for c in session['cart'].values() %}
+                    <tr id="appointment{{ c.id }}">
+                        <td>{{ c.id}}</td>
+                        <td>{{ c.name }}</td>
+                        <td>{{ c.description }}</td>
+                        <td>{{ c.description }}</td>
+                        <td>
+                            <div class="form-group">
+                             <input type="number"
+                                    value="{{ c.quantity }}"
+                                    onblur="updateCart({{c.id}},this)"
+                                    class="form-control">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="button" value="Xóa"
+                                   onclick="deleteCart({{c.id}})"
+                                   class="btn btn-danger">
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                {%else%}
+                <p>Không có loại thuốc nào</p>
+                {% endif %}
+            </table>
+        </div>
+        <small class="d-block text-right mt-3">
+            <button type="submit" class="btn" style ="background-color:blue" onclick="addReport()">Tạo phiếu</button>
+            <input type="button" >
+        </small>
+    </div>
+    </div>
+</form>
+{% if medicals %}
+<div class="container">
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h2 class="border-bottom border-gray pb-2 mb-0  ">Kho thuốc</h2>
+        {% for m in medicals %}
+        <div class="row mb-3" style="margin-top:3%">
+            <div class="col-5">{{ m.name }}</div>
+            <div class="col-5   ">{{ m.description }}</div>
+            <a href="#" class="btn btn-primary col-1" onclick="addToCart({{ m.id }}, '{{ m.name }}', '{{ m.description }}')">Thêm </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info mt-1">KHÔNG có sản phẩm nào.</div>
+{% endif %}
+
+{% endblock %}
