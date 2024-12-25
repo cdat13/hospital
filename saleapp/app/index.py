@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from datetime import datetime
 import flask_login
 from flask import render_template, request, redirect, url_for, session, jsonify
@@ -9,15 +10,94 @@ from flask_login import login_user, logout_user, login_required, current_user
 from app.dao import add_appointment, count_appointment, get_user_by_role, update_appointment, get_appointment_by_id
 from app.models import db, User, UserRole
 from flask_admin import Admin
+=======
+import math
+from flask import render_template, request, redirect, session, jsonify
+import dao, utils
+from app import app, login
+from flask_login import login_user, logout_user, login_required
+from app.models import UserRole
+>>>>>>> 1ebfe801aae69c2bb0dad9335c5d444ca3c7ea13
 
 
 @app.route("/")
 def index():
+<<<<<<< HEAD
     return render_template('layout/index.html')
 
 
 @app.route('/register', methods=['get', 'post'])
 def register_user():
+=======
+    kw = request.args.get('kw')
+    cate_id = request.args.get('category_id')
+    page = request.args.get('page', 1)
+
+    prods = dao.load_products(kw=kw, category_id=cate_id, page=int(page))
+
+    total = dao.count_products()
+
+    return render_template('index.html', products=prods,
+                           pages=math.ceil(total/app.config["PAGE_SIZE"]))
+
+
+@app.route("/products/<product_id>")
+def details(product_id):
+    comments = dao.load_comments(product_id)
+    return render_template('details.html', product=dao.get_prod_by_id(product_id), comments=comments)
+
+
+@app.route("/api/products/<product_id>/comments", methods=['post'])
+@login_required
+def add_comment(product_id):
+    c = dao.add_comment(content=request.json.get('content'), product_id=product_id)
+    return jsonify({
+        "id": c.id,
+        "content": c.content,
+        "created_date": c.created_date,
+        "user": {
+            "avatar": c.user.avatar
+        }
+    })
+
+
+@app.route("/login", methods=['get', 'post'])
+def login_process():
+    if request.method.__eq__('POST'):
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        u = dao.auth_user(username=username, password=password)
+        if u:
+            login_user(u)
+
+            next = request.args.get('next')
+            return redirect('/' if next is None else next)
+
+    return render_template('login.html')
+
+
+@app.route("/login-admin", methods=['post'])
+def login_admin_process():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    u = dao.auth_user(username=username, password=password, role=UserRole.ADMIN)
+    if u:
+        login_user(u)
+
+    return redirect('/admin')
+
+
+@app.route("/logout")
+def logout_process():
+    logout_user()
+    return redirect('/login')
+
+
+@app.route('/register', methods=['get', 'post'])
+def register_process():
+>>>>>>> 1ebfe801aae69c2bb0dad9335c5d444ca3c7ea13
     err_msg = ''
     if request.method.__eq__('POST'):
         password = request.form.get('password')
@@ -26,6 +106,7 @@ def register_user():
         if password.__eq__(confirm):
             data = request.form.copy()
             del data['confirm']
+<<<<<<< HEAD
             #
             # avatar = request.files.get('avatar')
             # dao.add_user(avatar=avatar, **data)
@@ -70,6 +151,97 @@ def login_admin():
 def logout_process():
     logout_user()
     return redirect('/login')
+=======
+
+            avatar = request.files.get('avatar')
+            dao.add_user(avatar=avatar, **data)
+
+            return redirect('/login')
+        else:
+            err_msg = 'Mật khẩu không khớp!'
+
+    return render_template('register.html', err_msg=err_msg)
+
+
+@app.route("/api/carts", methods=['post'])
+def add_to_cart():
+    # {
+    #     "1": {
+    #         "id": 1,
+    #         "name": 'iphone',
+    #         "price": 123,
+    #         "quantity": 2
+    #     }, "2": {
+    #         "id": 2,
+    #         "name": 'iphone',
+    #         "price": 123,
+    #         "quantity": 2
+    #     }
+    # }
+    cart = session.get('cart')
+    if not cart:
+        cart = {}
+
+    id = str(request.json.get('id'))
+    name = request.json.get('name')
+    price = request.json.get('price')
+
+    if id in cart:
+        cart[id]['quantity'] = cart[id]['quantity'] + 1
+    else:
+        cart[id] = {
+            "id": id,
+            "name": name,
+            "price": price,
+            "quantity": 1
+        }
+
+    session['cart'] = cart
+
+    return jsonify(utils.cart_stats(cart))
+
+
+@app.route("/api/carts/<product_id>", methods=['put'])
+def update_cart(product_id):
+    quantity = request.json.get('quantity', 0)
+
+    cart = session.get('cart')
+    if cart and product_id in cart:
+        cart[product_id]["quantity"] = int(quantity)
+
+    session['cart'] = cart
+
+    return jsonify(utils.cart_stats(cart))
+
+
+@app.route("/api/carts/<product_id>", methods=['delete'])
+def delete_cart(product_id):
+    cart = session.get('cart')
+    if cart and product_id in cart:
+        del cart[product_id]
+
+    session['cart'] = cart
+
+    return jsonify(utils.cart_stats(cart))
+
+
+@app.route("/api/pay", methods=['post'])
+@login_required
+def pay():
+    cart = session.get('cart')
+    try:
+        dao.add_receipt(cart)
+    except Exception as ex:
+        return jsonify({'status': 500, 'msg': str(ex)})
+    else:
+        del session['cart']
+        return jsonify({'status': 200, 'msg': 'successful'})
+
+
+@app.route('/cart')
+def cart_view():
+    return render_template('cart.html')
+>>>>>>> 1ebfe801aae69c2bb0dad9335c5d444ca3c7ea13
 
 
 @login.user_loader
@@ -77,6 +249,7 @@ def load_user(user_id):
     return dao.get_user_by_id(user_id)
 
 
+<<<<<<< HEAD
 @app.route('/appointment', methods=['get','post'])
 @login_required
 def make_appointment():
@@ -252,9 +425,18 @@ def delete_cart(appointment_id):
 
 
     return jsonify(dao.count_cart(cart))
+=======
+@app.context_processor
+def common_response_data():
+    return {
+        'categories': dao.load_categories(),
+        'cart_stats': utils.cart_stats(session.get('cart'))
+    }
+>>>>>>> 1ebfe801aae69c2bb0dad9335c5d444ca3c7ea13
 
 
 if __name__ == '__main__':
     from app import admin
     with app.app_context():
+        from app import admin
         app.run(debug=True)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* =====================================
 Template Name: 	Mediplus.
 Author Name: Naimur Rahman
@@ -4170,3 +4171,9 @@ body{
 /*=========================
 	End Footer CSS
 ===========================*/
+=======
+body {
+    background-color: whitesmoke;
+    color: darkblue;
+}
+>>>>>>> 1ebfe801aae69c2bb0dad9335c5d444ca3c7ea13
